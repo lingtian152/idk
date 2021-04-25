@@ -19,6 +19,14 @@ local VirtualUser = game:GetService("VirtualUser")
 local Players = game.Players.LocalPlayer
 local Character = Players.Character
 
+
+spawn(function()
+    game:GetService("Players").LocalPlayer.Idled:connect(function()
+        VirtualUser:CaptureController()
+        VirtualUser:ClickButton2(Vector2.new())
+    end)
+end)
+
 send = false
 Autosell = false
 Open = false
@@ -243,12 +251,6 @@ AutoFarm_Button.MouseButton1Click:Connect(function()
     end
 end)
 
-spawn(function()
-    game:GetService("Players").LocalPlayer.Idled:connect(function()
-        VirtualUser:CaptureController()
-        VirtualUser:ClickButton2(Vector2.new())
-    end)
-end)
 
 
 sell_Button.MouseButton1Click:Connect(function()
@@ -256,7 +258,7 @@ sell_Button.MouseButton1Click:Connect(function()
         Autosell = true
         SellText()
         sell_Button.BackgroundColor3 = Color3.new(0,255,0)
-    else if Autosell == true then
+    elseif Autosell == true then
         Autosell = false
         sell_Button.BackgroundColor3 = Color3.new(255,0,0)
     end
@@ -267,3 +269,5 @@ while wait() do
     Character.Humanoid.WalkSpeed = WalkSpeed_Value.Text
     Character.Humanoid.JumpPower = JumpPower_Value.Text
 end
+
+
