@@ -224,10 +224,12 @@ function SellText()
 end
 
 UserInpuService.InputBegan:Connect(function(Key)
-    if Frame.Visible == false and Key.Key == Enum.KeyCode.RightShift then
-        Frame.Visible = true
-    elseif Frame.Visible == true then
-        Frame.Visible = false
+    if Frame.Visible == false then 
+        if Key.KeyCode== Enum.KeyCode.RightShift then
+            Frame.Visible = true
+        elseif Frame.Visible == true then
+            Frame.Visible = false
+        end
     end
 end)
 
