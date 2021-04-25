@@ -218,17 +218,17 @@ function sendText()
 end
 
 function SellText()
-    while wait(.25) do
-        Character.HumanoidRootPart.CFrame = CFrame.new(-218.228, 8.70753, 900.538)
+    while wait(1) do
+        Character.HumanoidRootPart.CFrame = CFrame.new(-218.228, 8.70753 + 0.5, 900.538)
     end
 end
 
 UserInpuService.InputBegan:Connect(function(Key)
-    if Key.KeyCode == Enum.KeyCode.RightShift then
-         if Frame.Visible == false then
-             Frame.Visible = true
-          elseif Frame.Visible == false then
+    if Frame.Visble == false then
+        if Key.KeyCode == Enum.KeyCode.RightShift then
             Frame.Visible = true
+          elseif Frame.Visible == true then
+            Frame.Visible = false
         end
     end
 end)
@@ -258,9 +258,10 @@ sell_Button.MouseButton1Click:Connect(function()
         Autosell = true
         SellText()
         sell_Button.BackgroundColor3 = Color3.new(0,255,0)
-    elseif Autosell == true then
+    else if Autosell == true then
         Autosell = false
         sell_Button.BackgroundColor3 = Color3.new(255,0,0)
+        end
     end
 end)
 
