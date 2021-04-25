@@ -225,9 +225,9 @@ end
 
 function SellText()
     while wait(1) do
-        Character:FindFirstChild("Humanoid"):MoveTo(-218.228, 8.70753, 900.538)
+        Character.Humanoid:MoveTo(-218.228, 8.70753, 900.538)
         waait(1)
-        Character:FindFirstChild("Humanoid"):MoveTo(-219.228, 8.70753, 900.538)
+        Character.Humanoid:MoveTo(-219.228, 8.70753, 900.538)
     end
 end
 
