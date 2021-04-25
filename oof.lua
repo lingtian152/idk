@@ -9,12 +9,11 @@ local AutoFarm_Button = Instance.new("TextButton")
 local JumpPower = Instance.new("TextLabel")
 local JumpPower_Value = Instance.new("TextBox")
 local sell = Instance.new("TextLabel")
+local open = Instance.new("TextButton")
 local sell_Button = Instance.new("TextButton")
 local Destory = Instance.new("TextButton")
-local hide = Instance.new("TextLabel")
 
 -- Service
-local UserInpuService = game:GetService("UserInputService")
 local VirtualUser = game:GetService("VirtualUser")
 
 local Players = game.Players.LocalPlayer
@@ -22,7 +21,7 @@ local Character = Players.Character
 
 send = false
 Autosell = false
-local open = false
+Open = false
 
 --Properties:
 
@@ -35,7 +34,7 @@ Frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 Frame.Position = UDim2.new(0.5, 0, 0.5, 0)
 Frame.Size = UDim2.new(0, 826, 0, 518)
 Frame.Draggable = true
-
+Frame.Visible = true
 
 Title.Name = "Title"
 Title.Parent = Frame
@@ -60,6 +59,20 @@ Main.BackgroundTransparency = 0.300
 Main.BorderColor3 = Color3.fromRGB(27, 42, 53)
 Main.Position = UDim2.new(0.5, 0, 0.5, 0)
 Main.Size = UDim2.new(0, 694, 0, 403)
+
+open.Name = "open"
+open.Parent = textsimulator
+open.AnchorPoint = Vector2.new(0.5, 0.5)
+open.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+open.BorderSizePixel = 0
+open.Position = UDim2.new(0.0229166672, 0, 0.847222209, 0)
+open.Size = UDim2.new(0, 89, 0, 72)
+open.Font = Enum.Font.ArialBold
+open.Text = "Open"
+open.TextColor3 = Color3.fromRGB(255, 255, 255)
+open.TextScaled = true
+open.TextSize = 14.000
+open.TextWrapped = true
 
 WalkSpeed.Name = "WalkSpeed"
 WalkSpeed.Parent = Main
@@ -190,21 +203,6 @@ Destory.TextSize = 14.000
 Destory.TextWrapped = true
 Destory.Visible = true
 
-hide.Name = "hide"
-hide.Parent = Frame
-hide.AnchorPoint = Vector2.new(0.5, 0.5)
-hide.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-hide.BackgroundTransparency = 1.000
-hide.Position = UDim2.new(0.0811138004, 0, 0.967760623, 0)
-hide.Size = UDim2.new(0, 135, 0, 32)
-hide.Font = Enum.Font.ArialBold
-hide.Text = "rightshift hide and show gui"
-hide.TextColor3 = Color3.fromRGB(255, 255, 255)
-hide.TextScaled = true
-hide.TextSize = 14.000
-hide.TextWrapped = true
-hide.Visible = true
-
 ----function----
 
 
@@ -223,16 +221,16 @@ function SellText()
     end
 end
 
-UserInpuService.InputBegan:Connect(function(Key)
-    if Frame.Visible == false then
-        if Key.KeyCode == Enum.KeyCode.RightShift then
-            Frame.Visible = true
-          elseif Frame.Visible == true then
+
+open.MouseButton1Click:Connect(function()
+     if Open == true then
+        Frame.Visible = true
+        Open = false
+      elseif Open == false then
             Frame.Visible = false
-        end
+            Open = true
     end
 end)
-
 
 AutoFarm_Button.MouseButton1Click:Connect(function()
     if send == false then
@@ -261,7 +259,6 @@ sell_Button.MouseButton1Click:Connect(function()
     else if Autosell == true then
         Autosell = false
         sell_Button.BackgroundColor3 = Color3.new(255,0,0)
-        end
     end
 end)
 
