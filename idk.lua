@@ -8,17 +8,23 @@ local AutoFarm = Instance.new("TextLabel")
 local AutoFarm_Button = Instance.new("TextButton")
 local JumpPower = Instance.new("TextLabel")
 local JumpPower_Value = Instance.new("TextBox")
-local Close = Instance.new("TextButton")
-local open = Instance.new("TextButton")
+local sell = Instance.new("TextLabel")
+local sell_Button = Instance.new("TextButton")
+local Destory = Instance.new("TextButton")
+local hide = Instance.new("TextLabel")
 
+-- Service
+local UserInpuService = game:GetService("UserInputService")
 local VirtualUser = game:GetService("VirtualUser")
 
+local Players = game.Players.LocalPlayer
+local Character = Players.Character
 
 send = false
-local Open = false
-local Character = game.Players.LocalPlayer.Character
+Autosell = false
+local open = false
 
---Properties
+--Properties:
 
 textsimulator.Name = "textsimulator"
 textsimulator.Parent = game.CoreGui
@@ -28,7 +34,6 @@ Frame.AnchorPoint = Vector2.new(0.5, 0.5)
 Frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 Frame.Position = UDim2.new(0.5, 0, 0.5, 0)
 Frame.Size = UDim2.new(0, 826, 0, 518)
-Frame.Visible = false
 Frame.Draggable = true
 
 
@@ -101,6 +106,7 @@ AutoFarm.TextSize = 14.000
 AutoFarm.TextWrapped = true
 AutoFarm.TextXAlignment = Enum.TextXAlignment.Left
 
+AutoFarm_Button.Name = "AutoFarm_Button"
 AutoFarm_Button.Parent = AutoFarm
 AutoFarm_Button.AnchorPoint = Vector2.new(0.5, 0.5)
 AutoFarm_Button.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
@@ -127,7 +133,7 @@ JumpPower.TextScaled = true
 JumpPower.TextSize = 14.000
 JumpPower.TextWrapped = true
 
-JumpPower_Value.Name = "WalkSpeed"
+JumpPower_Value.Name = "JumpPower_Value"
 JumpPower_Value.Parent = JumpPower
 JumpPower_Value.AnchorPoint = Vector2.new(0.5, 0.5)
 JumpPower_Value.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
@@ -143,40 +149,67 @@ JumpPower_Value.TextScaled = true
 JumpPower_Value.TextSize = 14.000
 JumpPower_Value.TextWrapped = true
 
-Close.Name = "Close"
-Close.Parent = Frame
-Close.AnchorPoint = Vector2.new(0.5, 0.5)
-Close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Close.BackgroundTransparency = 1.000
-Close.Position = UDim2.new(0.960048437, 0, 0.0540540554, 0)
-Close.Size = UDim2.new(0, 66, 0, 57)
-Close.Font = Enum.Font.ArialBold
-Close.Text = "X"
-Close.TextColor3 = Color3.fromRGB(255, 0, 0)
-Close.TextScaled = true
-Close.TextSize = 14.000
-Close.TextWrapped = true
+sell.Name = "Sell"
+sell.Parent = Main
+sell.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+sell.BackgroundTransparency = 1.000
+sell.Position = UDim2.new(0.41642651, 0, 0.0397022329, 0)
+sell.Size = UDim2.new(0, 200, 0, 50)
+sell.Font = Enum.Font.SourceSans
+sell.Text = "Auto Sell"
+sell.TextColor3 = Color3.fromRGB(255, 255, 255)
+sell.TextScaled = true
+sell.TextSize = 14.000
+sell.TextWrapped = true
+sell.Visible = true
 
-open.Name = "open"
-open.Parent = textsimulator
-open.AnchorPoint = Vector2.new(0.5, 0.5)
-open.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
-open.BorderColor3 = Color3.fromRGB(0, 0, 0)
-open.Position = UDim2.new(0.0167910457, 0, 0.869015992, 0)
-open.Size = UDim2.new(0, 65, 0, 73)
-open.Font = Enum.Font.SourceSans
-open.Text = "open"
-open.TextColor3 = Color3.fromRGB(255, 255, 255)
-open.TextScaled = true
-open.TextSize = 14.000
-open.TextStrokeTransparency = 0.500
-open.TextWrapped = true
+sell_Button.Name = "sell_Button"
+sell_Button.Parent = sell
+sell_Button.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+sell_Button.BorderSizePixel = 0
+sell_Button.Position = UDim2.new(1, 0, 0.175999761, 0)
+sell_Button.Size = UDim2.new(0, 50, 0, 41)
+sell_Button.Font = Enum.Font.SourceSans
+sell_Button.Text = ""
+sell_Button.TextColor3 = Color3.fromRGB(0, 0, 0)
+sell_Button.TextSize = 14.000
+sell_Button.Visible = true
 
+Destory.Name = "Destory"
+Destory.Parent = Frame
+Destory.AnchorPoint = Vector2.new(0.5, 0.5)
+Destory.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Destory.BackgroundTransparency = 0.700
+Destory.Position = UDim2.new(0.822033942, 0, 0.944015443, 0)
+Destory.Size = UDim2.new(0, 162, 0, 41)
+Destory.Font = Enum.Font.SourceSans
+Destory.Text = "Destory Gui"
+Destory.TextColor3 = Color3.fromRGB(255, 255, 255)
+Destory.TextScaled = true
+Destory.TextSize = 14.000
+Destory.TextWrapped = true
+Destory.Visible = true
 
--- function
+hide.Name = "hide"
+hide.Parent = Frame
+hide.AnchorPoint = Vector2.new(0.5, 0.5)
+hide.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+hide.BackgroundTransparency = 1.000
+hide.Position = UDim2.new(0.0811138004, 0, 0.967760623, 0)
+hide.Size = UDim2.new(0, 135, 0, 32)
+hide.Font = Enum.Font.ArialBold
+hide.Text = "rightshift hide and show gui"
+hide.TextColor3 = Color3.fromRGB(255, 255, 255)
+hide.TextScaled = true
+hide.TextSize = 14.000
+hide.TextWrapped = true
+hide.Visible = true
+
+----function----
+
 
 function sendText()
-    while wait() do
+    while wait(.25) do
         local args = {
             [1] = "Phone"
         }
@@ -184,19 +217,17 @@ function sendText()
     end
 end
 
-Close.MouseButton1Click:Connect(function()
-    if Open == true then
-        Frame.Visible = false
+function SellText()
+    while wait(.25) do
+        Character.HumanoidRootPart.CFrame = CFrame.new(-218.228, 8.70753, 900.538)
     end
-end)
+end
 
-open.MouseButton1Click:Connect(function()
-    if Open == false then
+UserInpuService.InputBegan:Connect(function(Key)
+    if Frame.Visible == false and Key.Key == Enum.KeyCode.RightShift then
         Frame.Visible = true
-        Open = true
-    elseif Open == true then
+    elseif Frame.Visible == true then
         Frame.Visible = false
-        Open = false
     end
 end)
 
@@ -212,15 +243,27 @@ AutoFarm_Button.MouseButton1Click:Connect(function()
     end
 end)
 
-
-while wait() do
-    Character.Humanoid.WalkSpeed = WalkSpeed_Value.Text
-    Character.Humanoid.JumpPower = JumpPower_Value.Text
-end
-
 spawn(function()
     game:GetService("Players").LocalPlayer.Idled:connect(function()
         VirtualUser:CaptureController()
         VirtualUser:ClickButton2(Vector2.new())
     end)
 end)
+
+
+sell_Button.MouseButton1Click:Connect(function()
+    if Autosell == false then
+        Autosell = true
+        SellText()
+        sell_Button.BackgroundColor3 = Color3.new(0,255,0)
+    elseif Autosell == true then
+        Autosell = false
+        sell_Button.BackgroundColor3 = Color3.new(255,0,0)
+    end
+end)
+
+
+while wait() do
+    Character.Humanoid.WalkSpeed = WalkSpeed_Value.Text
+    Character.Humanoid.JumpPower = JumpPower_Value.Text
+end
