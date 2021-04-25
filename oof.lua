@@ -18,7 +18,7 @@ local VirtualUser = game:GetService("VirtualUser")
 
 local Players = game.Players.LocalPlayer
 local Character = Players.Character
-
+local humanoid = Character:WaitForChild("Humanoid")
 
 spawn(function()
     game:GetService("Players").LocalPlayer.Idled:connect(function()
@@ -223,11 +223,11 @@ function sendText()
     end
 end
 
-function SellText()
-    while wait(1) do
-        Character.Humanoid:MoveTo(-218.228, 8.70753, 900.538)
+local function SellText()
+    while wait() do
+        humanoid:MoveTo(-218.228, 8.70753, 900.538)
         waait(1)
-        Character.Humanoid:MoveTo(-219.228, 8.70753, 900.538)
+        humanoid:MoveTo(-219.228, 8.70753, 900.538)
     end
 end
 
