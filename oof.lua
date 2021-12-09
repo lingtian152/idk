@@ -43,6 +43,7 @@ Frame.Position = UDim2.new(0.5, 0, 0.5, 0)
 Frame.Size = UDim2.new(0, 826, 0, 518)
 Frame.Draggable = true
 Frame.Visible = true
+Frame.Active = true
 
 Title.Name = "Title"
 Title.Parent = Frame
